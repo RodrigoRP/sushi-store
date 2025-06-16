@@ -1,0 +1,18 @@
+{
+  "name": "M.V Sushi Delivery",
+  "short_name": "MVSushi",
+  "description": "Reserve seu sushi favorito com antecedência",
+  "theme_color": "#eb6419",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

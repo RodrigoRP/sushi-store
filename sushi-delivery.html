@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.V Sushi Delivery</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px; }
+        .header { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .header h1 { color: #ea580c; font-size: 28px; margin: 0; }
+        .info-box { background: #dbeafe; border: 1px solid #93c5fd; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 30px; }
+        .info-box h3 { color: #1e40af; margin: 0 0 10px 0; }
+        .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .filter-btn { padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer; font-size: 14px; font-weight: 500; background: #e5e7eb; color: #374151; transition: all 0.2s; }
+        .filter-btn.active { background: #ea580c; color: white; }
+        .filter-btn:hover { background: #d1d5db; }
+        .filter-btn.active:hover { background: #dc2626; }
+        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .product { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+        .product-image { width: 100%; height: 180px; background: linear-gradient(to bottom right, #fed7aa, #fb923c); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        .product-content { padding: 16px; }
+        .product h3 { font-size: 18px; font-weight: 600; color: #111827; margin: 0 0 8px 0; }
+        .product p { font-size: 14px; color: #6b7280; margin: 0 0 12px 0; }
+        .product-footer { display: flex; align-items: center; justify-content: space-between; }
+        .price { font-size: 20px; font-weight: bold; color: #ea580c; }
+        .add-btn { background: #ea580c; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; }
+        .add-btn:hover { background: #dc2626; }
+        .contact { text-align: center; margin-top: 40px; }
+        .contact h3 { font-size: 24px; font-weight: bold; color: #111827; margin-bottom: 20px; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 600px; margin: 0 auto; }
+        .contact-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .contact-card h4 { font-weight: 600; color: #111827; margin: 0 0 8px 0; }
+        .contact-card p { color: #6b7280; margin: 0; }
+        .whatsapp-link { font-size: 14px; color: #ea580c; text-decoration: none; }
+        .whatsapp-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🍣 M.V Sushi Delivery</h1>
+    </div>
+
+    <div class="info-box">
+        <h3>📅 Reservas Disponíveis</h3>
+        <p>Faça sua reserva com antecedência! Entregamos em São Francisco de Assis e região.</p>
+        <p style="font-size: 14px; margin-top: 8px;">📍 Maurício Cardoso 1242, Centro - São Francisco de Assis</p>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="font-size: 32px; font-weight: bold; color: #111827; margin: 0 0 10px 0;">Nosso Cardápio</h2>
+        <p style="color: #6b7280; margin: 0 0 10px 0;">Sushi fresco preparado com ingredientes premium</p>
+        <p id="counter" style="color: #9ca3af; font-size: 14px; margin: 0;">Mostrando produtos</p>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterProducts('Todos')">Todos</button>
+        <button class="filter-btn" onclick="filterProducts('Combos')">Combos</button>
+        <button class="filter-btn" onclick="filterProducts('Hot Rolls')">Hot Rolls</button>
+        <button class="filter-btn" onclick="filterProducts('Uramakis')">Uramakis</button>
+        <button class="filter-btn" onclick="filterProducts('Temakis')">Temakis</button>
+        <button class="filter-btn" onclick="filterProducts('Sashimis')">Sashimis</button>
+        <button class="filter-btn" onclick="filterProducts('Niguiris')">Niguiris</button>
+        <button class="filter-btn" onclick="filterProducts('Joe')">Joe</button>
+    </div>
+
+    <div class="products" id="products"></div>
+
+    <div class="contact">
+        <h3>Contato</h3>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h4>WhatsApp</h4>
+                <p>(55) 99600-5343</p>
+                <a href="https://wa.me/5555996005343" target="_blank" class="whatsapp-link">Chamar no WhatsApp</a>
+            </div>
+            <div class="contact-card">
+                <h4>Localização</h4>
+                <p>Maurício Cardoso 1242, Centro</p>
+                <p>São Francisco de Assis</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: '1', name: 'Combo Promocional', description: '20 peças: Hot roll, sashimi, niguiri e uramaki', price: 45.00, category: 'Combos' },
+            { id: '2', name: 'Hot Filadélfia', description: 'Salmão, cream cheese, empanado e frito', price: 18.00, category: 'Hot Rolls' },
+            { id: '3', name: 'Hot Skin', description: 'Salmão skin, cream cheese, empanado', price: 18.00, category: 'Hot Rolls' },
+            { id: '4', name: 'Hot Ebi', description: 'Camarão empanado, cream cheese', price: 18.00, category: 'Hot Rolls' },
+            { id: '5', name: 'Hot Especial', description: 'Salmão, kani, cream cheese, empanado', price: 20.00, category: 'Hot Rolls' },
+            { id: '6', name: 'Uramaki Filadélfia', description: 'Salmão, cream cheese, gergelim', price: 16.00, category: 'Uramakis' },
+            { id: '7', name: 'Uramaki Salmão', description: 'Salmão fresco, arroz temperado', price: 16.00, category: 'Uramakis' },
+            { id: '8', name: 'Uramaki Skin', description: 'Salmão skin grelhado, pepino', price: 16.00, category: 'Uramakis' },
+            { id: '9', name: 'Uramaki Kani', description: 'Kani, pepino, maionese', price: 16.00, category: 'Uramakis' },
+            { id: '10', name: 'Uramaki Atum', description: 'Atum fresco, cebolinha', price: 18.00, category: 'Uramakis' },
+            { id: '11', name: 'Uramaki Especial', description: 'Salmão, kani, cream cheese', price: 18.00, category: 'Uramakis' },
+            { id: '12', name: 'Temaki Salmão', description: 'Salmão fresco, arroz, alga', price: 12.00, category: 'Temakis' },
+            { id: '13', name: 'Temaki Atum', description: 'Atum fresco, cebolinha', price: 14.00, category: 'Temakis' },
+            { id: '14', name: 'Temaki Skin', description: 'Salmão skin, pepino', price: 12.00, category: 'Temakis' },
+            { id: '15', name: 'Temaki Kani', description: 'Kani, pepino, maionese', price: 12.00, category: 'Temakis' },
+            { id: '16', name: 'Temaki Ebi', description: 'Camarão, maionese', price: 14.00, category: 'Temakis' },
+            { id: '17', name: 'Temaki Especial', description: 'Salmão, cream cheese, cebolinha', price: 14.00, category: 'Temakis' },
+            { id: '18', name: 'Sashimi Salmão', description: '5 fatias de salmão fresco', price: 20.00, category: 'Sashimis' },
+            { id: '19', name: 'Sashimi Atum', description: '5 fatias de atum fresco', price: 25.00, category: 'Sashimis' },
+            { id: '20', name: 'Sashimi Misto', description: '8 fatias: salmão e atum', price: 35.00, category: 'Sashimis' },
+            { id: '21', name: 'Niguiri Salmão', description: '2 peças de salmão sobre arroz', price: 8.00, category: 'Niguiris' },
+            { id: '22', name: 'Niguiri Atum', description: '2 peças de atum sobre arroz', price: 10.00, category: 'Niguiris' },
+            { id: '23', name: 'Niguiri Ebi', description: '2 peças de camarão sobre arroz', price: 10.00, category: 'Niguiris' },
+            { id: '24', name: 'Joe Salmão', description: 'Salmão envolvido em arroz e alga', price: 6.00, category: 'Joe' },
+            { id: '25', name: 'Joe Atum', description: 'Atum envolvido em arroz e alga', price: 8.00, category: 'Joe' },
+            { id: '26', name: 'Joe Kani', description: 'Kani envolvido em arroz e alga', price: 6.00, category: 'Joe' },
+            { id: '27', name: 'Joe Pepino', description: 'Pepino fresco envolvido em alga', price: 5.00, category: 'Joe' }
+        ];
+
+        let currentCategory = 'Todos';
+
+        function formatPrice(price) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+            }).format(price);
+        }
+
+        function filterProducts(category) {
+            currentCategory = category;
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const filtered = category === 'Todos' 
+                ? products 
+                : products.filter(product => product.category === category);
+            
+            document.getElementById('counter').textContent = `Mostrando ${filtered.length} produtos na categoria "${category}"`;
+            
+            renderProducts(filtered);
+        }
+
+        function renderProducts(productsToShow) {
+            const container = document.getElementById('products');
+            container.innerHTML = productsToShow.map(product => `
+                <div class="product">
+                    <div class="product-image">🍣</div>
+                    <div class="product-content">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <div class="product-footer">
+                            <span class="price">${formatPrice(product.price)}</span>
+                            <button class="add-btn" onclick="addToCart('${product.name}')">+ Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productName) {
+            alert(`Adicionado ao carrinho: ${productName}\\n\\nPara finalizar seu pedido, entre em contato pelo WhatsApp: (55) 99600-5343`);
+        }
+
+        // Initialize
+        filterProducts('Todos');
+    </script>
+</body>
+</html>

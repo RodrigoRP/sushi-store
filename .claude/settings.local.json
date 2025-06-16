@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm audit fix:*)",
+      "Bash(npm run dev:*)",
+      "Bash(rm:*)",
+      "Bash(npm install)",
+      "Bash(npx prisma generate:*)",
+      "Bash(curl:*)",
+      "Bash(ss:*)",
+      "Bash(sudo ufw:*)",
+      "Bash(cat:*)",
+      "Bash(hostname:*)",
+      "Bash(rg:*)",
+      "Bash(kill:*)",
+      "Bash(lsof:*)"
+    ],
+    "deny": []
+  }
+}
